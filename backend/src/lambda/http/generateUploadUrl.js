@@ -1,7 +1,17 @@
-export function handler(event) {
-  const todoId = event.pathParameters.todoId
+import { generateUploadUrl } from "../../businessLogic/todos";
 
-  // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
-  return undefined
+export async function handler(event) {
+  const todoId = event.pathParameters.todoId
+  const URL = await generateUploadUrl(todoId);
+
+  return {
+    statusCode: 202,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      uploadUrl: URL,
+    })
+  };
 }
 
