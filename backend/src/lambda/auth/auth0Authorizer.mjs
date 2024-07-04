@@ -53,7 +53,7 @@ async function verifyToken(authHeader) {
     const pemData = res['data']['keys'][0]['x5c'][0]
     const cert = `-----BEGIN CERTIFICATE-----\n${pemData}\n-----END CERTIFICATE-----`
 
-    return verify(token, cert, { algorithms: ['RS256'] }) 
+    return jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] }) 
   } catch(err){
     logger.error('Fail to authenticate', err)
   }
