@@ -1,18 +1,18 @@
-import { getAllToDo } from "../../businessLogic/todos";
+import { getAllToDo } from '../../businessLogic/todos.js'
 
 export async function handler(event) {
-  const authorization = event.headers.Authorization;
-  const split = authorization.split(' ');
-  const jwtToken = split[1];
-  const toDos = await getAllToDo(jwtToken);
+  const authorization = event.headers.Authorization
+  const split = authorization.split(' ')
+  const jwtToken = split[1]
+  const toDos = await getAllToDo(jwtToken)
 
   return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      "items": toDos,
-    }),
+      items: toDos
+    })
   }
 }

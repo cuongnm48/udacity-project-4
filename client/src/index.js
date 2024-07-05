@@ -4,15 +4,14 @@ import ReactDOM from 'react-dom'
 import 'semantic-ui-css/semantic.min.css'
 import App from './App'
 import './index.css'
+import { config } from './config'
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
 ReactDOM.render(
   <Auth0Provider
-    domain={domain}
-    clientId={clientId}
+    domain={config.domain}
+    clientId={config.clientId}
     redirectUri={window.location.origin}
-    audience={`https://${domain}/api/v2/`}
+    audience={`https://${config.domain}/api/v2/`}
     scope="read:todo write:todo delete:todo"
   >
     <App />

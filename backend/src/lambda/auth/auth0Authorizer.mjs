@@ -4,7 +4,8 @@ import { createLogger } from '../../utils/logger.mjs'
 
 const logger = createLogger('auth')
 
-const jwksUrl = 'https://dev-uujls47a3n6zh23g.us.auth0.com/.well-known/jwks.json'
+const jwksUrl =
+  'https://dev-uujls47a3n6zh23g.us.auth0.com/.well-known/jwks.json'
 
 export async function handler(event) {
   try {
@@ -47,14 +48,11 @@ async function verifyToken(authHeader) {
   // const jwt = jsonwebtoken.decode(token, { complete: true })
   try {
     const token = getToken(authHeader)
-    const res = await Axios.get(jwksUrl);
-
-    // You can read more about how to do this here: https://auth0.com/blog/navigating-rs256-and-jwks/
+    const res = await Axios.get(jwksUrl)
     const pemData = res['data']['keys'][0]['x5c'][0]
     const cert = `-----BEGIN CERTIFICATE-----\n${pemData}\n-----END CERTIFICATE-----`
-
-    return jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] }) 
-  } catch(err){
+    return jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] })
+  } catch (err) {
     logger.error('Fail to authenticate', err)
   }
 }
